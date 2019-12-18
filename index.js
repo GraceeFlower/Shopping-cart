@@ -1,4 +1,4 @@
-var carProducts = [
+var cartProducts = [
   {
     "id": 1,
     "name": "英雄牌 钢笔",
@@ -43,6 +43,43 @@ var carProducts = [
   }
 ]
 
-(function () {
-  
-})();
+var productList = document.getElementsByTagName("tbody")[0];
+var productAttr = function (product) {
+  return Object.getOwnPropertyNames(product).length;
+}
+
+function addProduct() {
+  for(var item = 0; item < cartProducts.length; item++) {
+    var order = cartProducts[item];
+    var productItem = document.createElement("tr");
+    productList.appendChild(productItem);
+    for(var attr = 0; attr < productAttr(order); attr++) {
+      var productDetail = document.createElement("td");
+      productItem.appendChild(productDetail);
+      switch(attr) {
+        case (0):
+          var checkState = order.checked ? "checked" : "";
+          productDetail.innerHTML = `<input type="checkbox" name="if-choose" ${checkState} />`;
+          break;
+        case (1):
+          productDetail.innerText = `${order.name}`;
+          break;
+        case (2):
+          productDetail.innerText = `${order.price}`;
+          break;
+        case (3):
+          productDetail.innerHTML = `
+          <button id="add-item">+</button>
+          <span>${order.count}</span>
+          <button id="delete-item">-</button>
+          `;
+          break;
+        default:
+          productDetail.innerText = order.price *= order.count;
+          break;
+      }
+    }
+  }
+}
+
+addProduct();
