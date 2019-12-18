@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.shop-cart {
+  width: 60%;
+  margin: 100px auto;
+}
+
+table {
+  margin: auto;
+  border-collapse:collapse;
+  text-align: center;
+}
+
+caption {
+   margin: 10px;
+   font-weight: bold;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+td, th{
+  padding: 10px 20px;
+}
+
+thead, tfoot {
+  font-size: 18px;
+}
+
+tbody {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+tfoot > tr > td:last-child {
+  text-align: right;
+}
+
