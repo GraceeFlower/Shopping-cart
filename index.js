@@ -61,7 +61,7 @@ window.onload = function (){
         switch(attr) {
           case (0):
             var checkState = order.checked ? "checked" : "";
-            productDetail.innerHTML = `<input type="checkbox" name="if-choose" ${checkState} />`;
+            productDetail.innerHTML = `<input class="choose" type="checkbox" name="if-choose" ${checkState} />`;
             break;
           case (1):
             productDetail.innerText = `${order.name}`;
@@ -86,15 +86,12 @@ window.onload = function (){
 
   initializeProduct();
 
-  // var productItem = productList.createElement("tr");
   var sum = document.getElementById("total-price");
   var testChecked = document.getElementsByName("if-choose");
   var productPrice = document.getElementsByClassName("item-price");
   var productCount = document.getElementsByClassName("item-count");
   var smallSum = document.getElementsByClassName("small-sum");
   var chooseAll = document.getElementById("choose-all-btn");
-  var addBtn = document.getElementsByClassName("add-item");
-  var reduceBtn = document.getElementsByClassName("reduce-item");
 
   function calculateSmallSum(td) {
     var tr = td.parentNode;
@@ -124,6 +121,7 @@ window.onload = function (){
 
   function chooseAllProduct(e) {
     testChecked.forEach((item) => item.checked = chooseAll.checked ?  true : false);
+    calculateSum();
   }
   
   productList.addEventListener("click", function (e) {
@@ -138,6 +136,9 @@ window.onload = function (){
       case ("reduce-item"):
         reduceProduct(td);
         calculateSmallSum(td);
+        calculateSum();
+        break;
+      case ("choose"):
         calculateSum();
         break;
       default:
