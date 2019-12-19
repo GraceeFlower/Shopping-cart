@@ -40,3 +40,20 @@ tfoot > tr > td:last-child {
   text-align: right;
 }
 
+.total-count, .total-price, .item-count, .item-price {
+  display: inline-block;
+  text-align: center;
+}
+
+.item-count {
+  width: 20px;
+}
+
+.total-count {
+  width: 30px;
+}
+
+.total-price {
+  width: 60px;
+}
+

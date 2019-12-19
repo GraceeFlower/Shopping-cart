@@ -111,12 +111,12 @@ window.onload = function (){
         totalCount += parseFloat(productCount[item].innerText);
       }
     }
-    sum.innerText = `共计 ${totalCount} 件商品，${totalPrice} 元`;
+    sum.innerHTML = `共计<span class="total-count">${totalCount}</span>件商品，<span class="total-price">${totalPrice}</span>¥`;
   }
   calculateSum();
   
   chooseAll.addEventListener("click", chooseAllProduct);
-  function chooseAllProduct(e) {
+  function chooseAllProduct() {
     testChecked.forEach((item) => item.checked = chooseAll.checked ?  true : false);
     calculateSum();
   }
