@@ -77,7 +77,7 @@ window.onload = function (){
             `;
             break;
           default:
-            productDetail.innerText = order.price *= order.count;
+            productDetail.innerHTML = `<span class="small-sum">${order.price *= order.count}</span>`;
             break;
         }
       }
@@ -85,8 +85,30 @@ window.onload = function (){
   }
 
   addProduct();
-}
 
   var footer = document.getElementsByTagName("tfoot")[0];
-  var sum = footer.getElementsByTagName("td")[1];
-  // sum.innerText = `共计 ${calculateSum()} 件商品，${calculateSum()} 元`;
+  var sum = document.getElementById("total-price");
+  var testChecked = document.getElementsByName("if-choose");
+  var productPrice = document.getElementsByClassName("item-price");
+  var productCount = document.getElementsByClassName("item-count");
+  var smallSum = document.getElementsByClassName("small-sum");
+  var addBtn = document.getElementsByClassName("add-item");
+  var reduceBtn = document.getElementsByClassName("reduce-item");
+
+  function calculateSum() {
+    var totalCount = 0;
+    var totalPrice = 0;
+    for(var item = 0; item < testChecked.length; item++) {
+      if(testChecked[item].checked) {
+        totalPrice += parseFloat(smallSum[item].innerText),
+        totalCount += parseFloat(productCount[item].innerText);
+      }
+    }
+    sum.innerText = `共计 ${totalCount} 件商品，${totalPrice} 元`;
+  }
+  calculateSum();
+  
+
+}
+
+
