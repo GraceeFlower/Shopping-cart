@@ -84,16 +84,16 @@ window.onload = function (){
 
   initializeProduct();
 
-  var sum = document.getElementById("total-price");
-  var testChecked = document.getElementsByName("if-choose");
   var productPrice = document.getElementsByClassName("item-price");
   var productCount = document.getElementsByClassName("item-count");
+  var totalSum = document.getElementById("total-price");
   var smallSum = document.getElementsByClassName("small-sum");
+  var testChecked = document.getElementsByName("if-choose");
   var chooseAll = document.getElementById("choose-all-btn");
 
-  function calculateSmallSum(td) {
-    var tr = td.parentNode;
-    var index = tr.rowIndex - 1;
+  function calculateSmallSum(tdIndex) {
+    var trIndex = tdIndex.parentNode;
+    var index = trIndex.rowIndex - 1;
     if (productCount[index]) {
       var small = smallSum[index];
       var count = productCount[index].innerText;
@@ -111,7 +111,7 @@ window.onload = function (){
         totalCount += parseFloat(productCount[item].innerText);
       }
     }
-    sum.innerHTML = `共计<span class="total-count">${totalCount}</span>件商品，<span class="total-price">${totalPrice}</span>¥`;
+    totalSum.innerHTML = `共计<span class="total-count">${totalCount}</span>件商品，<span class="total-price">${totalPrice}</span>¥`;
   }
   calculateSum();
   
@@ -121,15 +121,15 @@ window.onload = function (){
     calculateSum();
   }
   
-  function addProduct(td) {
-    var count = td.querySelector("span");
+  function addProduct(tdIndex) {
+    var count = tdIndex.querySelector("span");
     count.innerText++;
   }
 
-  function reduceProduct(td) {
-    var count = td.querySelector("span");
+  function reduceProduct(tdIndex) {
+    var count = tdIndex.querySelector("span");
     if (count.innerText == 1) {
-      productList.removeChild(td.parentNode);
+      productList.removeChild(tdIndex.parentNode);
     } else {
       count.innerText--;
     }
@@ -150,16 +150,16 @@ window.onload = function (){
 
   productList.addEventListener("click", function (e) {
     var target = e.target;
-    var td = target.parentNode;
+    var tdIndex = target.parentNode;
     switch(target.className) {
       case ("add-item"):
-        addProduct(td);
-        calculateSmallSum(td); 
+        addProduct(tdIndex);
+        calculateSmallSum(tdIndex); 
         calculateSum();
         break;
       case ("reduce-item"):
-        reduceProduct(td);
-        calculateSmallSum(td);
+        reduceProduct(tdIndex);
+        calculateSmallSum(tdIndex);
         calculateSum();
         break;
       case ("choose"):
