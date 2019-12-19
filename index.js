@@ -50,7 +50,7 @@ window.onload = function (){
   var productAttr = function (product) {
     return Object.getOwnPropertyNames(product).length;
   }
-  function addProduct() {
+  function initializeProduct() {
     for(var item = 0; item < cartProducts.length; item++) {
       var order = cartProducts[item];
       var productItem = document.createElement("tr");
@@ -84,14 +84,14 @@ window.onload = function (){
     }
   }
 
-  addProduct();
+  initializeProduct();
 
-  var footer = document.getElementsByTagName("tfoot")[0];
   var sum = document.getElementById("total-price");
   var testChecked = document.getElementsByName("if-choose");
-  var productPrice = document.getElementsByClassName("item-price");
+  // var productPrice = document.getElementsByClassName("item-price");
   var productCount = document.getElementsByClassName("item-count");
   var smallSum = document.getElementsByClassName("small-sum");
+  var chooseAll = document.getElementById("choose-all-btn");
   var addBtn = document.getElementsByClassName("add-item");
   var reduceBtn = document.getElementsByClassName("reduce-item");
 
@@ -107,6 +107,15 @@ window.onload = function (){
     sum.innerText = `共计 ${totalCount} 件商品，${totalPrice} 元`;
   }
   calculateSum();
+  
+  chooseAll.addEventListener("click", chooseAllProduct);
+
+  function chooseAllProduct(e) {
+    testChecked.forEach((item) => item.checked = chooseAll.checked ?  true : false);
+  }
+  
+  // addBtn.addEventListener("click", addProduct);
+
   
 
 }
