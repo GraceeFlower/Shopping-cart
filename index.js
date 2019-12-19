@@ -43,8 +43,6 @@ var cartProducts = [
   }
 ]
 
-
-
 window.onload = function (){
   var productList = document.getElementsByTagName("tbody")[0];
   var productAttr = function (product) {
@@ -118,12 +116,25 @@ window.onload = function (){
   calculateSum();
   
   chooseAll.addEventListener("click", chooseAllProduct);
-
   function chooseAllProduct(e) {
     testChecked.forEach((item) => item.checked = chooseAll.checked ?  true : false);
     calculateSum();
   }
   
+  function addProduct(td) {
+    var count = td.querySelector("span");
+    count.innerText++;
+  }
+
+  function reduceProduct(td) {
+    var count = td.querySelector("span");
+    if (count.innerText == 1) {
+      productList.removeChild(td.parentNode);
+    } else {
+      count.innerText--;
+    }
+  }
+
   productList.addEventListener("click", function (e) {
     var target = e.target;
     var td = target.parentNode;
@@ -145,21 +156,4 @@ window.onload = function (){
         break;
     }
   });
-
-  function addProduct(td) {
-    var count = td.querySelector("span");
-    count.innerText++;
-  }
-
-  function reduceProduct(td) {
-    var count = td.querySelector("span");
-    if (count.innerText == 1) {
-      productList.removeChild(td.parentNode);
-    } else {
-      count.innerText--;
-    }
-  }
-
 }
-
-
