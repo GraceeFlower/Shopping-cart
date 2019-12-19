@@ -96,8 +96,15 @@ window.onload = function (){
   var addBtn = document.getElementsByClassName("add-item");
   var reduceBtn = document.getElementsByClassName("reduce-item");
 
-  function calculateSmallSum() {
-    smallSum.forEach(() => productCount *= productPrice);
+  function calculateSmallSum(td) {
+    var tr = td.parentNode;
+    var index = tr.rowIndex - 1;
+    if (productCount[index]) {
+      var small = smallSum[index];
+      var count = productCount[index].innerText;
+      var price = productPrice[index].innerText;
+      small.innerText = count * price;
+    }
   }
 
   function calculateSum() {
@@ -125,13 +132,13 @@ window.onload = function (){
     switch(target.className) {
       case ("add-item"):
         addProduct(td);
-        // calculateSmallSum();
-        // calculateSum();
+        calculateSmallSum(td); 
+        calculateSum();
         break;
       case ("reduce-item"):
         reduceProduct(td);
-        // calculateSmallSum();
-        // calculateSum();
+        calculateSmallSum(td);
+        calculateSum();
         break;
       default:
         break;
@@ -150,10 +157,7 @@ window.onload = function (){
     } else {
       count.innerText--;
     }
-
   }
-
-  
 
 }
 
