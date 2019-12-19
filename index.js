@@ -87,15 +87,15 @@ window.onload = function (){
   var productPrice = document.getElementsByClassName("item-price");
   var productCount = document.getElementsByClassName("item-count");
   var totalSum = document.getElementById("total-price");
-  var smallSum = document.getElementsByClassName("small-sum");
+  var subtotal = document.getElementsByClassName("small-sum");
   var testChecked = document.getElementsByName("if-choose");
   var chooseAll = document.getElementById("choose-all-btn");
 
-  function calculateSmallSum(tdIndex) {
+  function calculateSubtotal(tdIndex) {
     var trIndex = tdIndex.parentNode;
     var index = trIndex.rowIndex - 1;
     if (productCount[index]) {
-      var small = smallSum[index];
+      var small = subtotal[index];
       var count = productCount[index].innerText;
       var price = productPrice[index].innerText;
       small.innerText = count * price;
@@ -107,7 +107,7 @@ window.onload = function (){
     var totalPrice = 0;
     for(var item = 0; item < testChecked.length; item++) {
       if(testChecked[item].checked) {
-        totalPrice += parseFloat(smallSum[item].innerText),
+        totalPrice += parseFloat(subtotal[item].innerText),
         totalCount += parseFloat(productCount[item].innerText);
       }
     }
@@ -154,12 +154,12 @@ window.onload = function (){
     switch(target.className) {
       case ("add-item"):
         addProduct(tdIndex);
-        calculateSmallSum(tdIndex); 
+        calculateSubtotal(tdIndex); 
         calculateSum();
         break;
       case ("reduce-item"):
         reduceProduct(tdIndex);
-        calculateSmallSum(tdIndex);
+        calculateSubtotal(tdIndex);
         calculateSum();
         break;
       case ("choose"):
