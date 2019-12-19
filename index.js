@@ -69,9 +69,9 @@ window.onload = function (){
             break;
           case (3):
             productDetail.innerHTML = `
-            <button class="add-item">+</button>
-            <span class="item-count">${order.count}</span>
-            <button class="reduce-item">-</button>
+              <button class="add-item">+</button>
+              <span class="item-count">${order.count}</span>
+              <button class="reduce-item">-</button>
             `;
             break;
           default:
@@ -117,7 +117,7 @@ window.onload = function (){
   
   chooseAll.addEventListener("click", chooseAllProduct);
   function chooseAllProduct() {
-    testChecked.forEach((item) => item.checked = chooseAll.checked ?  true : false);
+    testChecked.forEach((item) => item.checked = chooseAll.checked ? true : false);
     calculateSum();
   }
   
@@ -135,6 +135,19 @@ window.onload = function (){
     }
   }
 
+  function judgeChosenState() {
+    var chosenState = false;
+    for(var item = 0; item < testChecked.length; item++) {
+      if(testChecked[item].checked) {
+        chosenState = true;
+      } else {
+        chosenState = false;
+        break;
+      }
+    }
+    chooseAll.checked = chosenState;
+  }
+
   productList.addEventListener("click", function (e) {
     var target = e.target;
     var td = target.parentNode;
@@ -150,6 +163,7 @@ window.onload = function (){
         calculateSum();
         break;
       case ("choose"):
+        judgeChosenState();
         calculateSum();
         break;
       default:
