@@ -86,14 +86,19 @@ window.onload = function (){
 
   initializeProduct();
 
+  // var productItem = productList.createElement("tr");
   var sum = document.getElementById("total-price");
   var testChecked = document.getElementsByName("if-choose");
-  // var productPrice = document.getElementsByClassName("item-price");
+  var productPrice = document.getElementsByClassName("item-price");
   var productCount = document.getElementsByClassName("item-count");
   var smallSum = document.getElementsByClassName("small-sum");
   var chooseAll = document.getElementById("choose-all-btn");
   var addBtn = document.getElementsByClassName("add-item");
   var reduceBtn = document.getElementsByClassName("reduce-item");
+
+  function calculateSmallSum() {
+    smallSum.forEach(() => productCount *= productPrice);
+  }
 
   function calculateSum() {
     var totalCount = 0;
@@ -114,7 +119,39 @@ window.onload = function (){
     testChecked.forEach((item) => item.checked = chooseAll.checked ?  true : false);
   }
   
-  // addBtn.addEventListener("click", addProduct);
+  productList.addEventListener("click", function (e) {
+    var target = e.target;
+    var td = target.parentNode;
+    switch(target.className) {
+      case ("add-item"):
+        addProduct(td);
+        // calculateSmallSum();
+        // calculateSum();
+        break;
+      case ("reduce-item"):
+        reduceProduct(td);
+        // calculateSmallSum();
+        // calculateSum();
+        break;
+      default:
+        break;
+    }
+  });
+
+  function addProduct(td) {
+    var count = td.querySelector("span");
+    count.innerText++;
+  }
+
+  function reduceProduct(td) {
+    var count = td.querySelector("span");
+    if (count.innerText == 1) {
+      productList.removeChild(td.parentNode);
+    } else {
+      count.innerText--;
+    }
+
+  }
 
   
 
