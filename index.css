@@ -20,7 +20,7 @@ caption {
 }
 
 table, th, td {
-    border: 1px solid black;
+    border: 1px solid #dedede;
 }
 
 td, th{
@@ -38,6 +38,10 @@ tbody {
 
 tfoot > tr > td:last-child {
   text-align: right;
+}
+
+thead, .add-item, .reduce-item {
+  background-color: #eee;
 }
 
 .total-count, .total-price, .item-count, .item-price {
