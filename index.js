@@ -111,7 +111,7 @@ window.onload = function (){
         totalCount += parseFloat(productCount[item].innerText);
       }
     }
-    totalSum.innerHTML = `共计<span class="total-count">${totalCount}</span>件商品，<span class="total-price">${totalPrice}</span>¥`;
+    totalSum.innerHTML = `共计<span class="total-count">${totalCount}</span>件商品，¥<span class="total-price">${totalPrice}</span>`;
   }
   calculateSum();
   
