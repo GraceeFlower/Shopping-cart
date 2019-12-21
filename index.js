@@ -148,8 +148,8 @@ window.onload = function (){
     chooseAll.checked = chosenState;
   }
 
-  productList.addEventListener("click", function (e) {
-    var target = e.target;
+  productList.addEventListener("click", function (event) {
+    var target = event.target;
     var tdIndex = target.parentNode;
     switch(target.className) {
       case ("add-item"):
