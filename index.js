@@ -57,17 +57,17 @@ window.onload = function (){
         var productDetail = document.createElement("td");
         productItem.appendChild(productDetail);
         switch(attr) {
-          case (0):
+          case 0:
             var checkState = order.checked ? "checked" : "";
             productDetail.innerHTML = `<input class="choose" type="checkbox" name="if-choose" ${checkState} />`;
             break;
-          case (1):
+          case 1:
             productDetail.innerText = `${order.name}`;
             break;
-          case (2):
+          case 2:
             productDetail.innerHTML = `<span class="item-price">${order.price}</span>`;
             break;
-          case (3):
+          case 3:
             productDetail.innerHTML = `
               <button class="add-item">+</button>
               <span class="item-count">${order.count}</span>
