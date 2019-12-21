@@ -136,14 +136,11 @@ window.onload = function (){
   }
 
   function judgeChosenState() {
-    var chosenState = false;
-    for(var item = 0; item < testChecked.length; item++) {
-      if(testChecked[item].checked) {
-        chosenState = true;
-      } else {
-        chosenState = false;
-        break;
-      }
+    var chosenState = true;
+    var item = 0;
+    while (item < testChecked.length && chosenState) {
+      chosenState = testChecked[item].checked ? true : false; 
+      item++;
     }
     chooseAll.checked = chosenState;
   }
