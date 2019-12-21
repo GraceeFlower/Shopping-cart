@@ -43,7 +43,7 @@ var cartProducts = [
   }
 ]
 
-window.onload = function (){
+// window.onload = function (){
   var productList = document.getElementsByTagName("tbody")[0];
 
   function loadItem() {
@@ -159,5 +159,4 @@ window.onload = function (){
   } 
 
   loadItem();
-  
-}
+// }
