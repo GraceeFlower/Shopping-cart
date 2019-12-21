@@ -45,44 +45,59 @@ var cartProducts = [
 
 window.onload = function (){
   var productList = document.getElementsByTagName("tbody")[0];
-  var productAttr = function (product) {
-    return Object.getOwnPropertyNames(product).length;
-  }
-  function initializeProduct() {
-    for(var item = 0; item < cartProducts.length; item++) {
-      var order = cartProducts[item];
-      var productItem = document.createElement("tr");
-      productList.appendChild(productItem);
-      for(var attr = 0; attr < productAttr(order); attr++) {
-        var productDetail = document.createElement("td");
-        productItem.appendChild(productDetail);
-        switch(attr) {
-          case 0:
-            var checkState = order.checked ? "checked" : "";
-            productDetail.innerHTML = `<input class="choose" type="checkbox" name="if-choose" ${checkState} />`;
-            break;
-          case 1:
-            productDetail.innerText = `${order.name}`;
-            break;
-          case 2:
-            productDetail.innerHTML = `<span class="item-price">${order.price}</span>`;
-            break;
-          case 3:
-            productDetail.innerHTML = `
-              <button class="add-item">+</button>
-              <span class="item-count">${order.count}</span>
-              <button class="reduce-item">-</button>
-            `;
-            break;
-          default:
-            productDetail.innerHTML = `<span class="small-sum">${order.price *= order.count}</span>`;
-            break;
-        }
+
+  function loadItem() {
+    initializeProduct(cartProducts);
+    calculateSum();
+    
+    productList.addEventListener("click", function (event) {
+      var target = event.target;
+      var tdIndex = target.parentNode;
+      switch(target.className) {
+        case ("add-item"):
+          addProduct(tdIndex);
+          calculateSubtotal(tdIndex); 
+          calculateSum();
+          break;
+        case ("reduce-item"):
+          reduceProduct(tdIndex);
+          calculateSubtotal(tdIndex);
+          calculateSum();
+          break;
+        case ("choose"):
+          judgeChosenState();
+          calculateSum();
+          break;
+        default:
+          break;
       }
-    }
+    });
+    chooseAll.addEventListener("click", chooseAllProduct);
   }
 
-  initializeProduct();
+  function initializeProduct(itemInfo) {
+    itemInfo.forEach((item) => addItemToCart(item));
+  }
+
+  function addItemToCart(itemInfo) {
+    var productItem = document.createElement("tr");
+    var checkState = itemInfo.checked ? "checked" : "";
+    var productDetail = `
+      <td>
+        <input class="choose" type="checkbox" name="if-choose" ${checkState} />
+      </td>
+      <td>${itemInfo.name}</td>
+      <td><span class="item-price">${itemInfo.price}</span></td>
+      <td>
+        <button class="add-item">+</button>
+        <span class="item-count">${itemInfo.count}</span>
+        <button class="reduce-item">-</button>
+      </td>
+      <td><span class="small-sum">${itemInfo.price *= itemInfo.count}</span></td>
+    `
+    productItem.innerHTML = productDetail;
+    productList.appendChild(productItem);
+  }
 
   var productPrice = document.getElementsByClassName("item-price");
   var productCount = document.getElementsByClassName("item-count");
@@ -113,9 +128,7 @@ window.onload = function (){
     }
     totalSum.innerHTML = `共计<span class="total-count">${totalCount}</span>件商品，¥<span class="total-price">${totalPrice}</span>`;
   }
-  calculateSum();
   
-  chooseAll.addEventListener("click", chooseAllProduct);
   function chooseAllProduct() {
     testChecked.forEach((item) => item.checked = chooseAll.checked ? true : false);
     calculateSum();
@@ -143,28 +156,8 @@ window.onload = function (){
       item++;
     }
     chooseAll.checked = chosenState;
-  }
+  } 
 
-  productList.addEventListener("click", function (event) {
-    var target = event.target;
-    var tdIndex = target.parentNode;
-    switch(target.className) {
-      case ("add-item"):
-        addProduct(tdIndex);
-        calculateSubtotal(tdIndex); 
-        calculateSum();
-        break;
-      case ("reduce-item"):
-        reduceProduct(tdIndex);
-        calculateSubtotal(tdIndex);
-        calculateSum();
-        break;
-      case ("choose"):
-        judgeChosenState();
-        calculateSum();
-        break;
-      default:
-        break;
-    }
-  });
+  loadItem();
+  
 }
