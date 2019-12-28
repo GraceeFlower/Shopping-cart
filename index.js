@@ -140,8 +140,9 @@ function addProduct(tdIndex) {
 
 function reduceProduct(tdIndex) {
   var count = tdIndex.querySelector("span");
-  if (count.innerText == 1) {
+  if ("1" === count.innerText) {
     productList.removeChild(tdIndex.parentNode);
+    judgeChosenState();
   } else {
     count.innerText--;
   }
@@ -151,8 +152,11 @@ function judgeChosenState() {
   var chosenState = true;
   var item = 0;
   while (item < testChecked.length && chosenState) {
-    chosenState = testChecked[item].checked ? true : false; 
+    chosenState = testChecked[item].checked; 
     item++;
+  }
+  if(!productList.childElementCount) {
+    chosenState = false;
   }
   chooseAll.checked = chosenState;
 } 
